@@ -7,5 +7,6 @@ defmodule MarkItWeb.Router do
 
   scope "/api", MarkItWeb do
     pipe_through :api
+    resources "/users", UserController, except: [:new, :edit]
   end
 end
