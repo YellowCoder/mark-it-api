@@ -51,8 +51,8 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :mark_it, MarkIt.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: "adrianotadao",
+  password: "",
   database: "mark_it_dev",
   hostname: "localhost",
   pool_size: 10
