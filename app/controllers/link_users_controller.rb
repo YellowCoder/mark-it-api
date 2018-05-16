@@ -22,7 +22,7 @@ class LinkUsersController < ApplicationController
       end
     else
       domain = Domain.where(name: link_users_params[:host]).first_or_create
-      newLink = Link.create(url: link_users_params[:url], domain: domain).first_or_create
+      newLink = Link.where(url: link_users_params[:url], domain: domain).first_or_create
       link_user = user.link_users.where(link_id: newLink.id).first_or_create
       render json: newLink.to_json
     end
