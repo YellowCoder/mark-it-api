@@ -21,8 +21,9 @@ class LinkUsersController < ApplicationController
         render status: 404
       end
     else
-      newLink = Link.create(url: link_users_params[:url])
-      link_user = user.link_users.create(link: newLink)
+      domain = Domain.where(name: link_users_params[:host]).first_or_create
+      newLink = Link.create(url: link_users_params[:url], domain: domain).first_or_create
+      link_user = user.link_users.where(link_id: newLink.id).first_or_create
       render json: newLink.to_json
     end
   end
@@ -52,6 +53,6 @@ class LinkUsersController < ApplicationController
   end
   
   def link_users_params
-    params.require(:link_user).permit(:auth_token, :url)
+    params.require(:link_user).permit(:auth_token, :url, :host)
   end
 end

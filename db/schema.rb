@@ -15,6 +15,12 @@ ActiveRecord::Schema.define(version: 2018_05_16_004011) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "domains", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "link_users", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "link_id", null: false
@@ -25,9 +31,11 @@ ActiveRecord::Schema.define(version: 2018_05_16_004011) do
   end
 
   create_table "links", force: :cascade do |t|
+    t.bigint "domain_id"
     t.string "url", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["domain_id"], name: "index_links_on_domain_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -40,4 +48,5 @@ ActiveRecord::Schema.define(version: 2018_05_16_004011) do
 
   add_foreign_key "link_users", "links"
   add_foreign_key "link_users", "users"
+  add_foreign_key "links", "domains"
 end
