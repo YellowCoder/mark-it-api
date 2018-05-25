@@ -1,17 +1,8 @@
 class User < ApplicationRecord
-  include BCrypt
-  has_secure_token :auth_token
+  include Concerns::PasswordBuilder
   
   validates :email, :password_hash, presence: true
+  validates :email, uniqueness: { case_sensitive: false }
 
   has_many :link_users
-
-  def password
-    @password ||= Password.new(password_hash)
-  end
-
-  def password=(new_password)
-    @password = Password.create(new_password)
-    self.password_hash = @password
-  end
 end
