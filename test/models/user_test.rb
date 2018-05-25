@@ -13,7 +13,7 @@ class UserTest < ActiveSupport::TestCase
 
   test 'should validate password_hash presence' do
     user = User.new(email: 'email@example.com')
-    user.valid?
+    assert_not user.valid?
     assert_not_nil user.errors.details[:password_hash]
   end
 

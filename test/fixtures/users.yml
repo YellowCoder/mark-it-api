@@ -1,4 +1,5 @@
 adriano:
+  id: 1
   email: 'adrianotada@gmail.com'
   password_hash: '$2a$10$BYmjW0P/iZI96QAZbotwGuTYQM9vxa1msuftM7WI0Xdb8eiaAS69.'
   auth_token: 'awJT77cKovUsW7t7xECJuYUm'
