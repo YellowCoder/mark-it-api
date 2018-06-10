@@ -23,15 +23,10 @@ class LinkUsersController < ApplicationController
     end
   end
 
-  def destroy_by_url
-    if link
-      link_user = current_user.link_users.find_by(link: link)
-      if link_user
-        link_user.destroy
-        render json: { deleted: true }
-      else
-        render status: 404
-      end
+  def destroy
+    if link_user = current_user&.link_users&.find_by(link: link)
+      link_user.destroy
+      render json: { deleted: true }
     else
       render status: 404
     end

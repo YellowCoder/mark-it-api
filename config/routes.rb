@@ -3,6 +3,5 @@ Rails.application.routes.draw do
   resources :sessions, only: [:create, :destroy]
   resources :link_users do
     get :check_url, on: :collection
-    delete :destroy_by_url, on: :collection
   end
 end
