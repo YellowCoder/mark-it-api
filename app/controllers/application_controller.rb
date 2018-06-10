@@ -1,3 +1,3 @@
 class ApplicationController < ActionController::API
-  etag { 1 }
+  include Concerns::CurrentUserFinder
 end
