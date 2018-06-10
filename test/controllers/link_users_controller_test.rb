@@ -7,9 +7,9 @@ class TestHelperController < ActionDispatch::IntegrationTest
     assert_response 404
   end
 
-  test 'should return 404 if the user doesn\'t exist' do
+  test 'should return 401 if the user doesn\'t exist' do
     get check_url_link_users_url, params: { link_user: { url: 'http://newurl.com', host: 'http://newurl.com' }}
-    assert_response 404
+    assert_response 401
   end
 
   test 'should return 404 on delete if the URL doesn\'t exist' do

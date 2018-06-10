@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  skip_before_action :authentication_check, only: :create
+
   def create
     @user = User.find_by(email: sessions_params[:email])
     
@@ -10,12 +12,10 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    @user = User.find_by(auth_token: params[:id])
-    
-    if @user && @user.logout
+    if current_user.logout
       render json: { ok: true }
     else
-      raise StandardError.new(@user.errors.full_messages)
+      raise StandardError.new(current_user.errors.full_messages)
     end
   end
 

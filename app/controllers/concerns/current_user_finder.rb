@@ -1,5 +1,3 @@
-require 'active_support/concern'
-
 module Concerns::CurrentUserFinder
   extend ActiveSupport::Concern
   include ActionController::Helpers

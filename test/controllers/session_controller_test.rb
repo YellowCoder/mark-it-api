@@ -18,8 +18,12 @@ class SessionControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should regenerate the auth_token after destroy the session' do
-    delete session_url({ id: 'HPmMaBAUvEDhrNcUG3FawkwV' })
-    user = User.find_by(auth_token: 'HPmMaBAUvEDhrNcUG3FawkwV')
+    user = users(:adriano)
+    initial_auth_token = user.auth_token
+
+    delete session_url({ id: 1, auth_token: user.auth_token })
+
+    user = User.find_by(auth_token: initial_auth_token)
     assert_nil user
   end
 end
