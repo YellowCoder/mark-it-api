@@ -8,18 +8,16 @@ class LinkUsersController < ApplicationController
   end
 
   def create
-    if link
-      link_user = current_user.link_users.create(link: link)
-      if link
-        render json: link.to_json
-      else
-        render status: 404
-      end
+    link_user_builder = LinkUserBuilder.new(
+      url: link_users_params[:url],
+      host: link_users_params[:host],
+      user: current_user
+    )
+
+    if link_user_builder.create!
+      render json: { ok: true }
     else
-      domain = Domain.where(name: link_users_params[:host]).first_or_create
-      newLink = Link.where(url: link_users_params[:url], domain: domain).first_or_create
-      link_user = current_user.link_users.where(link_id: newLink.id).first_or_create
-      render json: newLink.to_json
+      raise StandardError.new(link_user_builder.link_user.errors.full_messages)
     end
   end
 

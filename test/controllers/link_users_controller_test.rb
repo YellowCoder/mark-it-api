@@ -41,4 +41,16 @@ class TestHelperController < ActionDispatch::IntegrationTest
     }
     assert_response :success
   end
+
+  test 'should save a new url for a user' do
+    user = users(:adriano)
+    post link_users_url, params: { auth_token: user.auth_token, link_user: { url: 'http://newurl.com', host: 'newurl.com' } }
+    assert_response 200
+
+    saved_link = Link.find_by(url: 'http://newurl.com')
+    assert_not_nil saved_link
+
+    saved_link_user = LinkUser.where(user: user, link: saved_link)
+    assert_not_nil saved_link_user
+  end
 end
