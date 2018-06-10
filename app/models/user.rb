@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  include Concerns::PasswordBuilder
+  include Concerns::PasswordHandler
+  include Concerns::SessionHandler
 
   # Relationship
   has_many :link_users
