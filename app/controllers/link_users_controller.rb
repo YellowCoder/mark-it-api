@@ -14,7 +14,7 @@ class LinkUsersController < ApplicationController
       user: current_user
     )
 
-    if link_user_builder.create!
+    if link_user_builder.save
       render json: { ok: true }
     else
       raise StandardError.new(link_user_builder.link_user.errors.full_messages)
