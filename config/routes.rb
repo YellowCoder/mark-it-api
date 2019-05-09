@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   resources :link_users do
     get :check_url, on: :collection
   end
+  resources :users, only: :show
 end
